@@ -20,7 +20,7 @@ if not exist %buildDir% mkdir %buildDir%
 
 cd ..
 echo Creating: Air-Monkey_%v%.exe (in Dropbox public folder)
-adt -package -storetype pkcs12 -keystore cert\cert.p12 -storepass LetItAllOut -target native "%buildDir%\Air-Monkey_%v%.exe" application.xml index.html cms.html web-loader.html update-config.xml assets commands
+adt -package -storetype pkcs12 -keystore cert\cert.p12 -storepass LetItAllOut -target native "%buildDir%\Air-Monkey_%v%.exe" application.xml app update-config.xml README.md
 cd build
 
 endlocal

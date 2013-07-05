@@ -130,7 +130,7 @@ var websiteService = function(){
 	}
 
     function getDefaultWebsitePubFolder(website){
-        return folders.website(website).resolvePath("_site");
+        return folders.website(website).resolvePath("-site");
     }
 
 	return {

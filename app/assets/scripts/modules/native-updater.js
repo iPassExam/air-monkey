@@ -82,6 +82,18 @@ var nativeUpdater = {
 			var updateVersion = updateXML.getElementsByTagName("versionNumber")[0].firstChild.data;   
 			var updateUrl = updateXML.getElementsByTagName("url")[0].firstChild.data;
 
+			air.trace("updateVersion: "+ updateVersion);
+			air.trace("updateUrl: "+ updateUrl);
+			var currentVersion = prefs.currentVersion();
+			air.trace("currentVersion: "+ currentVersion);
+            $("#footnote").html("version: "+ currentVersion);
+			if (currentVersion < updateVersion){ 
+				air.trace("Needs Update");
+				$.publish(nativeUpdater.e.onUpdateFound, "<p>Current version = "+ currentVersion +"<br />New version = "+ updateVersion +"</p>");
+				nativeUpdater.download.update(updateUrl);
+                return;
+			} 
+
             var latestGemVersion = 0;
             if(updateXML.getElementsByTagName("gemVersionNumber")[0]){
                 latestGemVersion = updateXML.getElementsByTagName("gemVersionNumber")[0].firstChild.data;
@@ -93,20 +105,10 @@ var nativeUpdater = {
                 if(currentGemVersion < latestGemVersion){
                     nativeUpdater.installGems();
                     prefs.currentGemVersion(latestGemVersion);
+                    return;
                 }
             }
-            
-
-			air.trace("updateVersion: "+ updateVersion);
-			air.trace("updateUrl: "+ updateUrl);
-			var currentVersion = prefs.currentVersion();
-			air.trace("currentVersion: "+ currentVersion);
-            $("#footnote").html("version: "+ currentVersion);
-			if (currentVersion < updateVersion){ 
-				air.trace("Needs Update");
-				$.publish(nativeUpdater.e.onUpdateFound, "<p>Current version = "+ currentVersion +"<br />New version = "+ updateVersion +"</p>");
-				nativeUpdater.download.update(updateUrl);
-			} 
+            return;
 		},
 		downloadOpen: function(event){
 			 // Creating new FileStream to write downloaded bytes into 
