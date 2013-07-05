@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Air Monkey</title>
+
+    <!-- Le styles -->
+    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 90px; /* 90px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="assets/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+	<script type="text/javascript" src="assets/air/AIRAliases.js"></script>
+	<script type="text/javascript" src="assets/air/AIRIntrospector.js"></script>
+    <script type="application/x-shockwave-flash" src="assets/air/servicemonitor.swf"/>
+	<script type="application/x-shockwave-flash" src="assets/air/ApplicationUpdater_UI.swf"/>
+	<script type="text/javascript" src="assets/scripts/libs/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/knockout-2.2.1-min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery.pubsub-1.0.js"></script>
+
+	<!--Lib only dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/data-persistance.js"></script>
+	<script type="text/javascript" src="assets/scripts/utils.js"></script>
+	<!--Glodal dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/native-updater.js"></script>
+	<script type="text/javascript" src="assets/scripts/modules/website-service.js"></script>
+	<script type="text/javascript" src="assets/scripts/prefs.js"></script>
+	<!--Website Service dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/app.js"></script>
+	<!--App dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/ruby-check.js"></script>
+	<!--Full dependancies-->
+	<script type="text/javascript" src="assets/scripts/models/index.model.js"></script>
+	<script type="text/javascript" src="assets/scripts/handlers/index-handler.js"></script>
+	<script type="text/javascript" src="assets/scripts/handlers/global.js"></script>
+	
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="app:/app/index.html"><img src="app:/app/assets/images/logo-txt.png" /></a>
+          <div class="nav-collapse pull-right">
+            <ul class="nav">
+			  <li class="divider-vertical"></li>
+			  <li>
+				<div class="btn-group pull-right">
+				  <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+					<i class="icon-briefcase icon-white"></i> Tools <span class="caret"></span>
+				  </a>
+				  <ul class="dropdown-menu">
+					<li><a id="cmd" href="#">Command Window</a></li>
+					<li class="divider"></li>
+                    <li><a rel="external" href="http://static-cms.ipassexam.com/air-monkey.html">Help</a></li>
+					<li><a rel="external" href="http://code.google.com/p/static-cms/">About Static-CMS</a></li>
+				  </ul>
+				</div>
+				</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+		
+        <div id="msg"></div>
+
+		<div class="modal hide fade" id="message">
+			<div class="modal-header">
+				<h3 id="message-head"></h3>
+			</div>
+			<div class="modal-body" id="message-body"></div>
+			<div class="modal-footer" id="message-foot"></div>
+		</div>
+	
+		<div id="rubyMessage" style="display: none;">
+			<div class="alert alert-block alert-error">
+				<h4>Ruby 1.9.2 Required</h4>
+				<p>This application requires Ruby version 1.9.2.</p>
+				<p>Please download from: <a href="http://rubyinstaller.org/downloads/">Ruby Installer for Windows</a></p>
+				<p><strong>Note:</strong> You must select the install options to add ruby to your 'PATH' and accociate with .rb files</p>
+                <p><img src="assets/images/ruby-install-options.png" /></p>
+			</div>
+		</div>
+		
+		<div id="std-out" data-bind="visible: show">
+			<div class="alert alert-block alert-error"><h4 data-bind="text: header"></h4></div>
+			<blockquote>
+                <div id="console"></div>
+				<div data-bind="html: lines"></div>
+			</blockquote>
+		</div>
+		
+      	<div id="websites-grid" data-bind="visible: show">
+			<table class="table table-bordered table-hover" width="100%">
+				<thead><tr>
+                    <th>Websites</th>
+                    <th width="80px"></th>
+                    <th width="80px" class="fn-deploy"></th>
+                </tr></thead>
+				<tbody id="websites" data-bind="foreach: websites">
+					<tr>
+						<td data-bind="text: name"></td>
+						<td style="text-align: left;">
+						    <div class="btn-group">
+							    <a data-bind="attr: { 'data-action': action, 'data-webfolder': folder, 'data-website': name, href: editURL}" class='btn btn-inverse btn-mini website-build'><i class="icon-edit icon-white"></i> <span data-bind="text: action"></span></a>
+							    <button class="btn btn-inverse btn-mini dropdown-toggle" data-toggle="dropdown">
+							    <span class="caret"></span>
+							    </button>
+							    <ul class="dropdown-menu">
+							    	<li data-bind="visible: hasIndex"><a class="website-build" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="build">
+							    		build
+							    	</a></li>
+							    	<li data-bind="visible: hasIndex"><a class="website-build" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="preview">
+							    		preview
+							    	</a></li>
+                                    <li data-bind="visible: hasIndex"><a class="website-build" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="cpreview">
+                                        preview with crunch
+                                    </a></li>
+                                    <li data-bind="visible: hasSvn"><a class="website-update" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="svnupdate">
+                                        update
+                                    </a></li>
+                                    <li data-bind="visible: hasSvn"><a class="website-commit" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="svncommit">
+                                        commit
+                                    </a></li>
+							    	<li><a class="website-source" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="source">
+							    		view source
+							    	</a></li>
+							    </ul>
+						</td>
+                        <td style="text-align: center;" class="fn-deploy">
+                        	    <button data-bind="attr: { 'data-webfolder': folder, 'data-website': name }, visible: showPublish" class="website-deploy btn btn-warning  btn-mini">publish <i class="icon-share icon-white"></i></button>
+						    </div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div><button id="import-existing" class="btn">Import</button></div>
+		</div>
+    </div>
+
+    <div style="position: fixed; bottom: 10px; right: 10px; color: grey;" id="footnote"></div>
+    <script type="text/javascript" src="assets/scripts/modules/netmon.js"></script>
+  </body>
+</html>

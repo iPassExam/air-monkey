@@ -1,0 +1,61 @@
+<html>
+<head>
+	<script type="text/javascript" src="assets/air/AIRAliases.js"></script>
+	<script type="text/javascript" src="assets/air/AIRIntrospector.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery.pubsub-1.0.js"></script>
+    <script type="text/javascript" src="assets/scripts/libs/bootstrap.buttons.min.js"></script>
+    <link href="assets/stylesheets/bootstrap.buttons.min.css" rel="stylesheet" />
+
+	<script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="assets/ckeditor/adapters/jquery.js"></script>
+
+    <script type="text/javascript" src="assets/codemirror/codemirror.js"></script>
+    <link rel="stylesheet" href="assets/codemirror/codemirror.css" >
+    <script type="text/javascript" src="assets/codemirror/addon/format/formatting.js"></script>
+    <script type="text/javascript" src="assets/codemirror/mode/css/css.js"></script>
+    <script type="text/javascript" src="assets/codemirror/mode/xml/xml.js"></script>
+    <script type="text/javascript" src="assets/codemirror/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+	<!--Lib only dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/data-persistance.js"></script>
+	<script type="text/javascript" src="assets/scripts/utils.js"></script>
+	<!--Glodal dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/website-service.js"></script>
+	<script type="text/javascript" src="assets/scripts/prefs.js"></script>
+	<!--Website Service dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/app.js"></script>
+	<!--Full dependancies-->
+    <script type="text/javascript" src="assets/scripts/handlers/cms-handler.js"></script>
+	<script type="text/javascript" src="assets/scripts/handlers/global.js"></script>
+
+    
+    <style type="text/css">
+     .CodeMirror {
+        float: left;
+        width: 100%;
+        height: 95%;
+      }
+      body {
+        padding-top: 0px; 
+      }
+    </style>
+
+</head>
+<body>
+	<form id="cmsForm" method="GET">
+		<textarea cols="80" id="editor" name="editor" rows="10" style="width: 100%; height: 100%;">Loading...</textarea>
+		<div class="btn-group pull-left">
+            <button id="submit" name="submit" type="submit" style="display:none;" class="btn btn-primary"><i class="icon-edit icon-white"></i> Save</button>
+            <button id="exit" name="exit" type="button" style="display:none;" class="btn"><i class="icon-home"></i> Cancel</button>
+        </div>
+	</form>
+
+    <div class="modal hide fade" id="saving">
+        <div class="modal-header"><h3>Saving</h3></div>
+        <div class="modal-body"><img src="assets/images/page-loading.gif" /></div>
+        <div class="modal-footer"></div>
+    </div>
+</body>
+</html>

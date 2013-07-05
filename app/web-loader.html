@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Air-Monket Editor</title>
+	<link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+
+	<script type="text/javascript" src="assets/air/AIRAliases.js"></script>
+	<script type="text/javascript" src="assets/air/AIRIntrospector.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery.pubsub-1.0.js"></script>
+
+	<!--Lib only dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/data-persistance.js"></script>
+	<script type="text/javascript" src="assets/scripts/utils.js"></script>
+	<!--Glodal dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/website-service.js"></script>
+	<script type="text/javascript" src="assets/scripts/prefs.js"></script>
+	<!--Website Service dependancies-->
+	<script type="text/javascript" src="assets/scripts/modules/app.js"></script>
+	<!--Full dependancies-->
+	<script type="text/javascript" src="assets/scripts/handlers/global.js"></script>
+
+	<script>
+		var website = "";
+		var webfolder = "";
+		
+		var bridgeInterface = {
+			openExternalURL: function(url){
+			   var request = new air.URLRequest(url);
+			   try {
+				 air.navigateToURL(request);
+			   } catch (e) {
+				 air.trace(e)
+			   }
+			},
+			editView: function(view, page){
+                //use internal editor
+                document.location = "app:/app/cms.html?view="+ view +"&website="+ website +"&webfolder="+ webfolder +"&page="+ page;
+			}
+		}; 
+	
+		function engageBridge(){ 
+            var scmsWebsiteFrame = document.getElementById("scms-website-frame");
+			scmsWebsiteFrame.contentWindow.parentSandboxBridge = bridgeInterface; 
+		} 
+
+        function loadiframe(websitefolder, page){
+            //console.log(websitefolder);
+            var website = new air.File(websitefolder);
+
+            if(page == 'null')
+                page = "index.html"
+
+            var pubfolder = "file:///" + util.file.toString(website.resolvePath(page));
+            var iframe = ["<iframe id='scms-website-frame' name='website' ",
+                                "src='"+ pubfolder +"' ",
+                                "sandboxroot='"+ pubfolder +"/' ", 
+                                "documentroot='app:/app/' ", 
+                                "ondominitialize='engageBridge()'",
+                                "style='background-color: #ffe; width:100%; height:99%' ",
+                                "scrolling='auto', marginwidth='0', marginheight='0', frameborder='0'",
+                        "></iframe>"].join("");
+            
+            $("#frameloader").html(iframe);
+            
+            $("#scms-website-frame").ready(function(){
+                air.trace("Frame loaded");
+            });
+        }
+	</script> 
+  </head>
+
+  <body>
+	<div id="frameloader" style="width: 100%; text-align: center; height: 100%;"><img src="assets/images/page-loading.gif" style="margin-top: 200ps;" /></div>
+	<div style="position: fixed; bottom: 0px; left: 0px;"><button id="home" class="btn btn-success"><i class="icon-backward icon-white"></i> Dashboard</button></div>
+	
+	<script>
+		$(function(){
+			$("#home").click(function(){
+				document.location = "app:/app/index.html";
+			});
+			
+			website = util.html.decode(page.request.querystring("website"));
+			webfolder = util.html.decode(page.request.querystring("webfolder"));
+			page = util.html.decode(page.request.querystring("page"));
+
+            var pub = websiteService.getEditWebsitePubFolder(website).nativePath;
+            loadiframe(pub, page);
+
+		});
+	</script>
+</body>
+</html>
