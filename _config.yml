@@ -34,8 +34,6 @@ scripts:
 - libraries-min:
     version: 1.1
     bundle:
-     - google-code-prettify/prettify.js
-     - google-code-prettify/lang-yaml.js
      - scripts/bootstrap.js
 
 stylesheets:
@@ -45,6 +43,4 @@ stylesheets:
       - stylesheets/bootstrap.css
       - stylesheets/demo.css
       - stylesheets/bootstrap-responsive.css
-      - google-code-prettify/sons-of-obsidian.css
-#      - google-code-prettify/prettify.css
 
