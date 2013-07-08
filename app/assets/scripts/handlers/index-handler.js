@@ -22,9 +22,6 @@ $(function(){
                 case "edit":
                 app.website.build(website, webfolder, this, "edit");
                 break;
-                case "cpreview":
-                app.website.build(website, webfolder, this, "cpreview");
-                break;
                 default:
                 app.website.build(website, webfolder, this, "build");
                 break;

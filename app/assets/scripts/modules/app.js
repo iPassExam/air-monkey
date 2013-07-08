@@ -29,9 +29,6 @@ var app = {
             // Other action such as build and preview should use StaticCMS's default
             // SCMS will use the /compiled folder or use the options.build_dir from _config.yml if it exists 
             // console.log(action);
-            if(action == "cpreview"){
-                buildScript = app.folder.gui.resolvePath("commands\\air-monkey-build-with-crunch.cmd").nativePath;
-            }
             if(action == "edit"){
                 var pub = websiteService.getEditWebsitePubFolder(website);
                 if (!pub.isDirectory)
