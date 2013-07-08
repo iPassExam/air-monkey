@@ -1,0 +1,4 @@
+
+$(function(){
+	//Custom JS here
+});

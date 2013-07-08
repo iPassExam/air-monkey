@@ -1,0 +1,19 @@
+<div class="span12">
+    <div>
+        <p>In this video I demonstrate how to edit text on your website using Air-Monkey.</p>
+        <div id="media-edit"><img src="images/ajax-loader.gif" /></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="scripts/swfobject.js"></script>
+<script type="text/javascript">
+// <![CDATA[	
+    var soEdit = new SWFObject( "videos/editing/Editing_text_with_Air-Monkey.swf", "csSWF", "640", "498", "9.0.28", "#ffffff");
+    soEdit.addParam( "quality", "best" );
+    soEdit.addParam( "allowFullScreen", "true" );
+    soEdit.addParam( "scale", "showall" );
+    soEdit.addParam( "allowScriptAccess", "always" );
+    soEdit.addVariable( "autostart", "false" );
+    soEdit.write("media-edit");	         
+// ]]>
+</script>

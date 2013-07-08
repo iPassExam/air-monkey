@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+	<link href='stylesheets/base-v1.1.css' type='text/css' rel='stylesheet'/>
+
+	<script src="scripts/jquery-1.8.2.min.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="scripts/html5.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8933957-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+  </head>
+
+  <body onload="prettyPrint()">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/s3cms/">s3cms</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+			
+				<li><a href='import.html' class=' '>
+					Import
+				</a></li>	
+			
+				<li><a href='edit.html' class=' '>
+					Edit
+				</a></li>	
+			
+				<li><a href='publish.html' class='active '>
+					Publish
+				</a></li>	
+			
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+	  <header id="overview" class="jumbotron subhead">
+			<div class="hero-unit">
+	<h1>How to Publish a Website</h1>
+</div>
+
+	  </header>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span12">
+    <div>
+        <p>In this video I demonstrate how to publish you Static-CMS website to Amazon S3 using Air-Monkey.</p>
+        <div id="media-deploy"><img src="images/ajax-loader.gif" /></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="scripts/swfobject.js"></script>
+<script type="text/javascript">
+// <![CDATA[	
+    var soDeploy = new SWFObject( "videos/publishing/Publish_Website_with_Air-Monkey.swf", "csSWF", "640", "498", "9.0.28", "#ffffff");
+    soDeploy.addParam( "quality", "best" );
+    soDeploy.addParam( "allowFullScreen", "true" );
+    soDeploy.addParam( "scale", "showall" );
+    soDeploy.addParam( "allowScriptAccess", "always" );
+    soDeploy.addVariable( "autostart", "false" );
+    soDeploy.write("media-deploy");	            
+// ]]>
+</script>
+      </div>
+
+      <hr>
+
+      <footer>
+		<p id="view-theme-vars"><a class="btn" href="#">View theme variables</a></p>
+		<div style="diplay: none;" id="theme-vars">
+			<p>Page: publish.html</p>
+			<p>Sitedir: C:/Users/cprobert/Desktop/AirMonket-Website</p>
+			
+			<p>Scripts: {"base"=>"scripts/base-v1.0.js", "libraries-min"=>"scripts/libraries-min-v1.1.js"}</p>
+			<p>Stylesheets: {"base"=>"stylesheets/base-v1.1.css"}</p>
+			<p>Config: {"generate"=>"publish.html", "resource"=>"_resources/publish.yml", "views"=>{"intro"=>"_views/publish-intro.erb", "main"=>"_views/publish-main.erb"}}</p>
+			
+			
+			<p>Resource: {}</p>
+			<p>Views: (access like this: data.views["viewname"])</p>
+		</div>
+		<script>
+			$(function(){
+				$("#theme-vars").hide();
+				$("#view-theme-vars").click(function(e){
+                    e.preventDefault();
+					$("#theme-vars").toggle();
+				});
+			});
+		</script>
+		
+			
+        <p>&copy; Courtenay Probert 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+	<script src='scripts/libraries-min-v1.1.js'></script>
+	<script src='scripts/base-v1.0.js'></script>
+    
+  </body>
+</html>
