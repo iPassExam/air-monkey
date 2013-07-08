@@ -83,7 +83,7 @@ $(function(){
 	            	} else {alert("No name specified!")}
             		
             	} else {
-            		alert("Folder doesn't contain a Static-CMS config.yml file!");
+            		alert("Folder doesn't contain a Static-CMS _config.yml file!");
             	}
             }
 		});
@@ -174,7 +174,7 @@ $(function(){
                       console.log("Error parsing custom build dir");
                     }
                     //document.location = "app:/app/index.html";
-                    stdOutVM.lines.push("<div class='alert alert-success'><h4>Build Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
+                    stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
                 }, function(){
                     var pub = websiteService.getDefaultWebsitePubFolder($a.attr("data-website")).nativePath;
                     var index = new air.File(pub +"\\index.html"); 
@@ -184,11 +184,11 @@ $(function(){
                         alert("No index.html for website: "+ pub);
                     }
                     //document.location = "app:/app/index.html";
-                    stdOutVM.lines.push("<div class='alert alert-success'><h4>Build Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
+                    stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
                 });
 			  	break;
 			default:
-			  	stdOutVM.lines.push("<div class='alert alert-success'><h4>Build Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
+			  	stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
 			}
 
 			$(document).scrollTop($(document).height()+30);
@@ -242,9 +242,9 @@ $(function(){
 	//websites = websiteService.saveWebsite("DropTest","C:/Users/cprobert/Dropbox/websites/my.test.com");
 
     function renderWebsite(w){
-        var showPub = util.file.exists(websites[w]+"\\s3config.yml");
+        var showPub = util.file.exists(websites[w]+"\\_s3config.yml");
         var isApp = util.file.exists(websites[w]+"\\debug.cmd");
-        var hasIndex = util.file.contains(websites[w]+"\\config.yml", "index.html");
+        var hasIndex = util.file.contains(websites[w]+"\\_config.yml", "index.html");
         var hasSvn = util.file.exists(websites[w]+"\\.svn");
         wsGridVM.websites.push(new website(w, websites[w], showPub, isApp, hasIndex, hasSvn));
     }

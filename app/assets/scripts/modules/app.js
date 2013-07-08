@@ -27,7 +27,7 @@ var app = {
             
             // An action of edit will use the puild dir specified in websiteService.getEditWebsitePubFolder
             // Other action such as build and preview should use StaticCMS's default
-            // SCMS will use the /compiled folder or use the options.build_dir from config.yml if it exists 
+            // SCMS will use the /compiled folder or use the options.build_dir from _config.yml if it exists 
             // console.log(action);
             if(action == "cpreview"){
                 buildScript = app.folder.gui.resolvePath("commands\\air-monkey-build-with-crunch.cmd").nativePath;

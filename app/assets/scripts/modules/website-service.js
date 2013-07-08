@@ -40,7 +40,7 @@ var websiteService = function(){
 
 	function isStaticCMS(folder){
 		var websiteFolder = new air.File(folder);
-		return websiteFolder.resolvePath("config.yml").exists;
+		return websiteFolder.resolvePath("_config.yml").exists;
 	}
 
 	function initialiseWebsites(){
@@ -63,7 +63,7 @@ var websiteService = function(){
 					websites[website] = websiteFolder;
 				} 
 			} else {
-				air.trace("Skiping "+ websiteFolder +" doesn't contain config.yml");
+				air.trace("Skiping "+ websiteFolder +" doesn't contain _config.yml");
 			}
 		}
 
@@ -88,14 +88,14 @@ var websiteService = function(){
 	}
 
     function websiteHasCustomBuildDir(w){
-        return util.file.contains(websites[w]+"\\config.yml", "build_dir");
+        return util.file.contains(websites[w]+"\\_config.yml", "build_dir");
     }
 
     function customBuildDirProcessor(website, successCallback, failCallback){
         if(websiteHasCustomBuildDir(website)){
             var peek = app.folder.gui.resolvePath("commands\\config-peek.cmd").nativePath;
             var processArgs = new air.Vector["<String>"]();
-                config = util.file.toString(new air.File(websiteService.websites[website]+ "\\config.yml" ))
+                config = util.file.toString(new air.File(websiteService.websites[website]+ "\\_config.yml" ))
                 processArgs.push(config); 
                 processArgs.push("options.build_dir"); 
 
@@ -130,7 +130,7 @@ var websiteService = function(){
 	}
 
     function getDefaultWebsitePubFolder(website){
-        return folders.website(website).resolvePath("-site");
+        return folders.website(website).resolvePath("_site");
     }
 
 	return {
