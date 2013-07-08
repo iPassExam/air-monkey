@@ -13,6 +13,7 @@ echo Updating descriptor
 
 echo Updating download page
 .\tools\msxsl.exe ..\application.xml .\xslt\download.xsl -o "%buildDir%\index.html"
+.\tools\msxsl.exe ..\application.xml .\xslt\download.xsl -o "..\html\download.html"
 
 endlocal
 echo Complete
