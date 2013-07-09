@@ -94,6 +94,9 @@ var app = {
 	startNativeProcess: function (run, processArgs, successCallback, stdOutCallback){
 		if(air.NativeProcess.isSupported)
 		{
+			air.trace("Launching: "+ run);
+			air.trace(processArgs);
+			
 			var appToLaunch = new air.File(run);
 			var nativeProcessStartupInfo = new air.NativeProcessStartupInfo();
 			nativeProcessStartupInfo.executable = appToLaunch;

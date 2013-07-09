@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns="http://ns.adobe.com/air/framework/update/configuration/1.0">
-	<url>https://dl.dropboxusercontent.com/u/4407314/AirMonkey/update-descriptor.xml</url>
+	<url>https://dl.dropboxusercontent.com/u/4407314/AirMonkey/update-descriptor-dev.xml</url>
 	<!--<url>file:///C:/Code/static_cms/update-descriptor.xml</url>-->
 	<delay>1</delay>
 	<defaultUI> 

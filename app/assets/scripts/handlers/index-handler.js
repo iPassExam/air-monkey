@@ -112,8 +112,10 @@ $(function(){
 			stdOutVM.show(true);
 		});
 		$.subscribe(nativeUpdater.e.onGemUpdateProgress, function(e, data){
-			stdOutVM.print(data.replace(/\n/g, '<br />'));
-			$(document).scrollTop($(document).height());
+			if(data){
+				stdOutVM.print(data.replace(/\n/g, '<br />'));
+				$(document).scrollTop($(document).height());
+			}
 		});
 		$.subscribe(nativeUpdater.e.onGemUpdateComplete, function(e){
 			prefs.firstRun("no");

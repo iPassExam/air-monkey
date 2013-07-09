@@ -18,7 +18,7 @@ $(function(){
 
 	//wire command link in header
 	$("#cmd").click(function(){
-		app.startNativeProcess(app.folder.gui.resolvePath("menu.cmd").nativePath);
+		app.startNativeProcess(app.folder.gui.resolvePath("commands/menu.cmd").nativePath);
 	});
 
 

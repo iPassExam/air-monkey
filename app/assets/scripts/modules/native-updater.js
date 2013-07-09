@@ -38,9 +38,16 @@ var nativeUpdater = {
         $.publish(nativeUpdater.e.onGemUpdateStart);
         // run setup.cmd
         app.startNativeProcess(app.folder.gui.resolvePath("commands\\setup.cmd").nativePath, null, function(){
-            $.publish(nativeUpdater.e.onGemUpdateComplete);
+        	air.trace("Gem update complete");
+        	window.setTimeout(function(){
+				$.publish(nativeUpdater.e.onGemUpdateComplete);
+        	}, 1500);
         }, function(data){
-            $.publish(nativeUpdater.e.onGemUpdateProgress, data);
+        	air.trace("Gem progress");
+        	air.trace(data);
+        	if(data){
+            	$.publish(nativeUpdater.e.onGemUpdateProgress, data);
+        	}
         });
     },
 	download: {
@@ -95,10 +102,12 @@ var nativeUpdater = {
 			} 
 
             var latestGemVersion = 0;
+
             if(updateXML.getElementsByTagName("gemVersionNumber")[0]){
                 latestGemVersion = updateXML.getElementsByTagName("gemVersionNumber")[0].firstChild.data;
                 latestGemVersion = parseInt(latestGemVersion.replace(/\./g,""))
                 var currentGemVersion = parseInt(prefs.currentGemVersion());
+
                 air.trace("currentGemVersion: "+ currentGemVersion);
                 air.trace("latestGemVersion: "+ latestGemVersion);
                 
