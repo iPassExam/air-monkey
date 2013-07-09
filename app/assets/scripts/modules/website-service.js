@@ -130,7 +130,10 @@ var websiteService = function(){
 	}
 
     function getDefaultWebsitePubFolder(website){
-        return folders.website(website).resolvePath("_site");
+    	var hasPublicDir = util.file.exists(folders.website(website).resolvePath("public").nativePath);
+    	if(hasPublicDir)
+        	return folders.website(website).resolvePath("_site");
+        return folders.website(website);
     }
 
 	return {
