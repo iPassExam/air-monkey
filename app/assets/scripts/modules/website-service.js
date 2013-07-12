@@ -1,14 +1,8 @@
 // website servie
 var websiteService = function(){
-    //Create a temp dir for editing builds
-    var tempEditDir = null;
-    if(! data.local("tempEditDir")){
-        tempEditDir = air.File.createTempDirectory();
-        //console.log("Creating new temp dir: "+ tempEditDir.nativePath);
-        data.local("tempEditDir", tempEditDir.nativePath);
-    }
-
+	
 	var websites = {};
+	//data.local("websites",null);
 	websites = JSON.parse(data.local("websites"));
 	if(websites == null)
 		websites = {};
@@ -16,9 +10,8 @@ var websiteService = function(){
 	var folders = {
 		websites: air.File.documentsDirectory.resolvePath("Websites"),
 		website: function(website){
-			if(websites.hasOwnProperty(website)){
+			if(websites.hasOwnProperty(website))
 				return new air.File(websites[website]);
-			}
 			return new air.File();
 		}
 	}
@@ -71,7 +64,6 @@ var websiteService = function(){
 		return websites;
 	}
 	
-
 	function saveWebsites(){
 		data.local("websites", JSON.stringify(websites));
 	}
@@ -87,63 +79,11 @@ var websiteService = function(){
 		}
 	}
 
-    function websiteHasCustomBuildDir(w){
-        return util.file.contains(websites[w]+"\\_config.yml", "build_dir");
-    }
-
-    function customBuildDirProcessor(website, successCallback, failCallback){
-        if(websiteHasCustomBuildDir(website)){
-            var peek = app.folder.gui.resolvePath("commands\\config-peek.cmd").nativePath;
-            var processArgs = new air.Vector["<String>"]();
-                config = util.file.toString(new air.File(websiteService.websites[website]+ "\\_config.yml" ))
-                processArgs.push(config); 
-                processArgs.push("options.build_dir"); 
-
-            app.startNativeProcess(peek, processArgs, null, function(data){
-                if(data){
-                    if (data == undefined){
-                        if($.isFunction(failCallback))
-                            failCallback.call();
-                    } else if($.trim(data) == "empty"){
-                        if($.isFunction(failCallback))
-                            failCallback.call();
-                    } else {
-                        if($.isFunction(successCallback))
-                            successCallback.call(undefined, data);
-                    }
-                } else {
-                    console.log("No data when getting build dir");
-                    if($.isFunction(failCallback))
-                        failCallback.call();
-                }
-            });
-        } else {
-            if($.isFunction(failCallback))
-                failCallback.call();
-        }
-    }
-
-	function getEditWebsitePubFolder(website){
-        var tempEditDir = new air.File(data.local("tempEditDir"));
-        tempEditDir = tempEditDir.resolvePath(website);
-        return tempEditDir;
-	}
-
-    function getDefaultWebsitePubFolder(website){
-    	var hasPublicDir = util.file.exists(folders.website(website).resolvePath("public").nativePath);
-    	if(hasPublicDir)
-        	return folders.website(website).resolvePath("_site");
-        return folders.website(website);
-    }
-
 	return {
 		websites: websites,
 		initialiseWebsites: initialiseWebsites,
 		saveWebsite: saveWebsite,
 		isStaticCMS: isStaticCMS,
-		getEditWebsitePubFolder: getEditWebsitePubFolder,
-        getDefaultWebsitePubFolder: getDefaultWebsitePubFolder,
-        customBuildDirProcessor: customBuildDirProcessor,
 		folders: folders
 	}
 }();

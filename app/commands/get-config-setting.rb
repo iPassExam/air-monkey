@@ -37,7 +37,7 @@ end
 
 puts "Opening Config:" if options[:verbose]
 puts options[:config] if options[:verbose]
-$settings = StaticCMS.getsettings(options[:config])
+$settings = ScmsUtils.getsettings(options[:config])
 
 if options[:setting] != nil
     puts "Getting setting: #{options[:setting]}" if options[:verbose]

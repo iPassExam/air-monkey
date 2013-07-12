@@ -156,35 +156,16 @@ $(function(){
 				}, 500);
 			  	break;
 			case "preview":
-            case "cpreview":
-                var website = $a.attr("data-website");
-
-                websiteService.customBuildDirProcessor(website, function(data){
-                    air.trace("Opening custom build dir");
-                    try {
-                        var pub = new air.File(data);
-                        var index = new air.File($.trim(pub.nativePath) +"/index.html"); 
-                        if(index.exists){
-                            index.openWithDefaultApplication();
-                        } else {
-                            alert("No index.html for custom build dir: "+ pub.nativePath);
-                        }
-                    } catch(err) {
-                      console.log("Error parsing custom build dir");
-                    }
-                    //document.location = "app:/app/index.html";
-                    stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
-                }, function(){
-                    var pub = websiteService.getDefaultWebsitePubFolder($a.attr("data-website")).nativePath;
-                    var index = new air.File(pub +"\\index.html"); 
-                    if(index.exists){
-                        index.openWithDefaultApplication();
-                    } else {
-                        alert("No index.html for website: "+ pub);
-                    }
-                    //document.location = "app:/app/index.html";
-                    stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
-                });
+                var pub = websiteService.folders.website($a.attr("data-website")).nativePath; 
+                var index = new air.File(pub +"\\index.html"); 
+                if(index.exists){
+                    index.openWithDefaultApplication();
+                } else {
+                    alert("No index.html for website: "+ pub);
+                }
+                //document.location = "app:/app/index.html";
+                stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
+            
 			  	break;
 			default:
 			  	stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");

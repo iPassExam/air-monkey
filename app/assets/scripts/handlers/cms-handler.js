@@ -22,7 +22,7 @@ $(function(){
         alert("No such view: "+ viewURI);
     }
 
-    function Exit(website){
+    function exit(website){
         document.location = "app:/app/web-loader.html?website="+ website.site +"&webfolder="+ website.folder +"&page="+ website.page;
     }
 
@@ -35,7 +35,7 @@ $(function(){
         util.file.write(viewURI, html);
 
         $.subscribe(app.e.onBuildComplete, function(e, website){
-            Exit(website);
+            exit(website);
         });
 
         app.website.build(website.site, website.folder, website, "edit");
@@ -100,7 +100,7 @@ $(function(){
             .show()
             .click(function(e){
                 e.preventDefault();
-                Exit(website);
+                exit(website);
             });
     }
 });

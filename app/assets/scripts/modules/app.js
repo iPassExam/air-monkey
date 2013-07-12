@@ -18,24 +18,18 @@ var app = {
 	website: {
 		build: function(website, webdir, obj, action){
 			air.trace("Building: "+ website);
+			air.trace("webdir: "+ webdir);
+			air.trace("obj: "+ obj);
+			air.trace("action: "+ action);
 
 			var buildScript = app.folder.gui.resolvePath("commands\\air-monkey-build.cmd").nativePath;
-
 			var processArgs = new air.Vector["<String>"]();
             var builddir = util.file.toString(new air.File(webdir));
+            air.trace("builddir: "+ builddir);
 			processArgs.push(builddir); 
             
-            // An action of edit will use the puild dir specified in websiteService.getEditWebsitePubFolder
-            // Other action such as build and preview should use StaticCMS's default
-            // SCMS will use the /compiled folder or use the options.build_dir from _config.yml if it exists 
-            // console.log(action);
             if(action == "edit"){
-                var pub = websiteService.getEditWebsitePubFolder(website);
-                if (!pub.isDirectory)
-                    pub.createDirectory();
-
                 processArgs.push("cms"); 
-                processArgs.push(util.file.toString(pub)); 
             } else {
                 processArgs.push("publish"); 
             }
@@ -63,7 +57,6 @@ var app = {
 		},
 		debug: function(website){
 			var appFolder = websiteService.folders.website(website);
-
 			app.startNativeProcess(appFolder.resolvePath("debug.cmd").nativePath);
 		},
         svnupdate: function(website, webdir, obj){
@@ -132,14 +125,6 @@ var app = {
 	},
 	window: {
 		shutDown: function(){
-            try{
-                var tempWebsiteEditDir = new air.File(data.local("tempEditDir"));
-                data.local("tempEditDir", null)
-                tempWebsiteEditDir.deleteDirectory(true);
-            } catch (e) {
-                console.log(e);
-            }
-
 			prefs.window.x(nativeWindow.x);
 			prefs.window.y(nativeWindow.y);
 			prefs.window.width(nativeWindow.width);

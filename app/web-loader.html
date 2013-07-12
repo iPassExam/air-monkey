@@ -45,9 +45,9 @@
 			scmsWebsiteFrame.contentWindow.parentSandboxBridge = bridgeInterface; 
 		} 
 
-        function loadiframe(websitefolder, page){
-            //console.log(websitefolder);
-            var website = new air.File(websitefolder);
+        function loadiframe(webfolder, page){
+            //console.log(webfolder);
+            var website = new air.File(webfolder);
 
             if(page == 'null')
                 page = "index.html"
@@ -68,14 +68,7 @@
                 air.trace("Frame loaded");
             });
         }
-	</script> 
-  </head>
 
-  <body>
-	<div id="frameloader" style="width: 100%; text-align: center; height: 100%;"><img src="assets/images/page-loading.gif" style="margin-top: 200ps;" /></div>
-	<div style="position: fixed; bottom: 0px; left: 0px;"><button id="home" class="btn btn-success"><i class="icon-backward icon-white"></i> Dashboard</button></div>
-	
-	<script>
 		$(function(){
 			$("#home").click(function(){
 				document.location = "app:/app/index.html";
@@ -84,11 +77,14 @@
 			website = util.html.decode(page.request.querystring("website"));
 			webfolder = util.html.decode(page.request.querystring("webfolder"));
 			page = util.html.decode(page.request.querystring("page"));
-
-            var pub = websiteService.getEditWebsitePubFolder(website).nativePath;
-            loadiframe(pub, page);
+            loadiframe(webfolder, page);
 
 		});
-	</script>
-</body>
+	</script> 
+  </head>
+
+  <body>
+	<div id="frameloader" style="width: 100%; text-align: center; height: 100%;"><img src="assets/images/page-loading.gif" style="margin-top: 200ps;" /></div>
+	<div style="position: fixed; bottom: 0px; left: 0px;"><button id="home" class="btn btn-success"><i class="icon-backward icon-white"></i> Dashboard</button></div>
+  </body>
 </html>
