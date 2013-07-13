@@ -46,7 +46,7 @@
       <form class="form-download text-center">
         <h2 class="form-download-heading">Air Monkey</h2>
         <a href="http://static-cms.ipassexam.com/"><img src="http://ipassexam.github.io/Air-Monkey/images/airmonkey-logo.png" /></a>
-        <a href="Air-Monkey_{a:versionNumber}.exe" class="btn btn-large btn-primary" type="submit">Download</a>
+        <a href="https://dl.dropboxusercontent.com/u/4407314/AirMonkey/Air-Monkey_{a:versionNumber}.exe" class="btn btn-large btn-primary" type="submit">Download</a>
       </form>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
