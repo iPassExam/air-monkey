@@ -7,6 +7,12 @@ pages:
     views : 
         intro: _views/home-intro.erb
         main: _views/home-main.erb
+- prerequisites:
+    generate: prerequisites.html
+    resource: _resources/prerequisites.yml
+    views : 
+        intro: _views/prerequisites-intro.erb
+        main: _views/prerequisites-main.erb
 - import: 
     generate: import.html
     resource: _resources/import.yml
