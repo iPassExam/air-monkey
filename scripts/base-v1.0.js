@@ -1,4 +1,1 @@
-
-$(function(){
-	//Custom JS here
-});
+$(function(){});

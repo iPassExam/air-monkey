@@ -29,15 +29,15 @@ pages:
 bundles:
 - base:
     generate: scripts/base-v1.0.js
-    bundle:
+    files:
      - scripts/demo.js
 - libraries-min:
     generate: scripts/libraries-min-v1.1.js
-    bundle:
+    files:
      - scripts/bootstrap.js
 - base:
     generate: stylesheets/base-v1.1.css
-    bundle:
+    files:
       - stylesheets/bootstrap.css
       - stylesheets/demo.css
       - stylesheets/bootstrap-responsive.css
