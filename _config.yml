@@ -26,19 +26,17 @@ pages:
         intro: _views/publish-intro.erb
         main: _views/publish-main.erb
         
-scripts:
+bundles:
 - base:
-    version: 1.0
+    generate: scripts/base-v1.0.js
     bundle:
      - scripts/demo.js
 - libraries-min:
-    version: 1.1
+    generate: scripts/libraries-min-v1.1.js
     bundle:
      - scripts/bootstrap.js
-
-stylesheets:
 - base:
-    version: 1.1
+    generate: stylesheets/base-v1.1.css
     bundle:
       - stylesheets/bootstrap.css
       - stylesheets/demo.css
