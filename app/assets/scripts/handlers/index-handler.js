@@ -11,6 +11,16 @@ function popMsg(head, body, foot){
 $(function(){
 	
 	function bindEvents(){
+
+		//wire command link in header
+		$("#cmd").click(function(){
+			app.startNativeProcess(app.folder.gui.resolvePath("commands/menu.cmd").nativePath);
+		});
+		//wire setup command link in header
+		$("#setup").click(function(){
+			app.startNativeProcess(app.folder.gui.resolvePath("commands/setup.cmd").nativePath);
+		});
+
         $(".website-build").live("click", function(e){ 
             e.preventDefault();
             var $this = $(this);

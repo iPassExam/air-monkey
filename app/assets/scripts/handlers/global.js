@@ -16,12 +16,6 @@ $(function(){
             webfolderObj.openWithDefaultApplication();
     });
 
-	//wire command link in header
-	$("#cmd").click(function(){
-		app.startNativeProcess(app.folder.gui.resolvePath("commands/menu.cmd").nativePath);
-	});
-
-
 	window.nativeWindow.addEventListener(runtime.flash.events.Event.CLOSING, app.window.exit);
 	air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, app.window.shutDown);
 });
