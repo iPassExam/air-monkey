@@ -4,7 +4,7 @@ var netmon = function(){
     var monitorURL = null;
 
     air.NativeApplication.nativeApplication.addEventListener(air.Event.NETWORK_CHANGE, onNetworkChange);
-    monitorURL = "http://code.google.com/p/static-cms/";
+    monitorURL = "http://cprobert.github.io/Static-CMS/";
     onNetworkChange();
 
     function onNetworkChange(e){
