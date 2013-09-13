@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns="http://ns.adobe.com/air/framework/update/configuration/1.0">
+	<!-- If you edit this you also need to edit url in netmon.js -->
 	<url>https://dl.dropboxusercontent.com/u/4407314/AirMonkey/update-descriptor.xml</url>
 	<!--<url>file:///C:/Code/static_cms/update-descriptor.xml</url>-->
 	<delay>1</delay>

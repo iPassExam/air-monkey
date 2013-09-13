@@ -4,7 +4,7 @@ var netmon = function(){
     var monitorURL = null;
 
     air.NativeApplication.nativeApplication.addEventListener(air.Event.NETWORK_CHANGE, onNetworkChange);
-    monitorURL = "http://cprobert.github.io/Static-CMS/";
+    monitorURL = "https://dl.dropboxusercontent.com/u/4407314/AirMonkey/update-descriptor.xml";
     onNetworkChange();
 
     function onNetworkChange(e){
