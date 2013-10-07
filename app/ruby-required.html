@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Air Monkey</title>
+
+    <!-- Le styles -->
+    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 90px; /* 90px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="assets/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+	<script type="text/javascript" src="assets/air/AIRAliases.js"></script>
+	<script type="text/javascript" src="assets/air/AIRIntrospector.js"></script>
+
+	<script type="text/javascript" src="assets/scripts/libs/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/knockout-2.2.1-min.js"></script>
+	
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="app:/app/index.html"><img src="app:/app/assets/images/logo-txt.png" /></a>
+          <div class="nav-collapse pull-right">
+            <ul class="nav">
+			  <li class="divider-vertical"></li>
+			  <li>
+				<div class="btn-group pull-right">
+				  <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+					<i class="icon-briefcase icon-white"></i> Tools <span class="caret"></span>
+				  </a>
+				  <ul class="dropdown-menu">
+					<li><a id="cmd" href="#">Command Window</a></li>
+					<li><a id="setup" href="#">Rerun scms setup</a></li>
+					<li class="divider"></li>
+					<li><a rel="external" href="http://ipassexam.github.io/Air-Monkey/">Air-Monkey Help</a></li>
+                    <li><a rel="external" href="http://cprobert.github.io/Static-CMS/">Static-CMS Help</a></li>
+				  </ul>
+				</div>
+				</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+		<div id="rubyMessage">
+			<div class="alert alert-block alert-error">
+				<h4>Ruby 1.9.3 Required</h4>
+				<p>This application requires Ruby version 1.9.3.</p>
+				<p>Please download from: <a href="http://rubyinstaller.org/downloads/">Ruby Installer for Windows</a></p>
+				<p><strong>Note:</strong> You must select the install options to add ruby to your 'PATH' and accociate with .rb files</p>
+                <p><img src="assets/images/ruby-install-options.png" /></p>
+			</div>
+		</div>
+	</div>
+
+    <div style="position: fixed; bottom: 10px; right: 10px; color: grey;" id="footnote"></div>
+  </body>
+</html>

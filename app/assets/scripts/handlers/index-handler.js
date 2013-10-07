@@ -99,8 +99,9 @@ $(function(){
 	function bindSubscriptions(){
 		//Subscribe to ruby check events
 		$.subscribe(rubyCheck.e.onRubyRequired, function(e){
-			$("#rubyMessage").show();
-			wsGridVM.showGrid(false);
+			document.location = "ruby-required.html";
+			//$("#rubyMessage").show();
+			//wsGridVM.showGrid(false);
 		});
 		$.subscribe(rubyCheck.e.onRubyInstalled, function(e){
 			if(prefs.firstRun())
