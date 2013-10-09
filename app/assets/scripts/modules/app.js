@@ -6,10 +6,7 @@ var app = {
 		onBuildComplete: "build.complete",
 		onDeployStart: "deploy.start",
 		onDeployProgress: "deploy.progress",
-		onDeployComplete: "deploy.complete",
-        onSvnUpdateStart: "svn.update.start",
-        onSvnUpdateProgress: "svn.update.progress",
-        onSvnUpdateComplete: "svn.update.complete"
+		onDeployComplete: "deploy.complete"
 	},
 	folder: {
 		root: air.File.applicationDirectory,
@@ -58,31 +55,7 @@ var app = {
 		debug: function(website){
 			var appFolder = websiteService.folders.website(website);
 			app.startNativeProcess(appFolder.resolvePath("debug.cmd").nativePath);
-		},
-        svnupdate: function(website, webdir, obj){
-            air.trace("Updating "+ webdir);
-            var svn = app.folder.gui.resolvePath("commands\\svn-update.cmd").nativePath;
-            var processArgs = new air.Vector["<String>"]();
-            processArgs.push("update"); 
-            processArgs.push(util.file.toString(new air.File(webdir))); 
-
-            $.publish(app.e.onSvnUpdateStart);
-            app.startNativeProcess(svn, processArgs, function(){
-                $.publish(app.e.onSvnUpdateComplete, obj);
-            }, function(data){
-                $.publish(app.e.onSvnUpdateProgress, data);
-            });
-        },
-        svncommit: function(website, webdir, obj){
-            air.trace("Commiting "+ webdir);
-            var svn = app.folder.gui.resolvePath("commands\\svn.cmd").nativePath;
-
-            var processArgs = new air.Vector["<String>"]();
-            processArgs.push("commit"); 
-            processArgs.push(util.file.toString(new air.File(webdir)));
-
-            app.startNativeProcess(svn, processArgs);
-        }
+		}
 	},
 	startNativeProcess: function (run, processArgs, successCallback, stdOutCallback){
 		if(air.NativeProcess.isSupported)

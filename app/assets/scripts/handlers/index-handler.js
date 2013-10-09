@@ -57,22 +57,6 @@ $(function(){
 			app.website.deploy(website, webfolder, this);
 		});
 
-        $(".website-update").live("click", function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var website = $this.attr("data-website");
-            var webfolder = $this.attr("data-webfolder");
-            app.website.svnupdate(website, webfolder, this);
-        });
-
-        $(".website-commit").live("click", function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var website = $this.attr("data-website");
-            var webfolder = $this.attr("data-webfolder");
-            app.website.svncommit(website, webfolder, this);
-        });
-
 		$("#import-existing").click(function(e){
 			e.preventDefault();
 			var folder = new air.File();
@@ -100,12 +84,11 @@ $(function(){
 		//Subscribe to ruby check events
 		$.subscribe(rubyCheck.e.onRubyRequired, function(e){
 			document.location = "ruby-required.html";
-			//$("#rubyMessage").show();
-			//wsGridVM.showGrid(false);
 		});
 		$.subscribe(rubyCheck.e.onRubyInstalled, function(e){
-			if(prefs.firstRun())
-				nativeUpdater.installGems();
+			// if(prefs.firstRun()){
+			// 	nativeUpdater.installGems();
+			// }
 		});
 		// Subscribe to native update events		
 		$.subscribe(nativeUpdater.e.onUpdateFound, function(e, msg){
@@ -202,28 +185,6 @@ $(function(){
 			stdOutVM.lines.push("<div class='alert alert-success'><h4>Publish Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
             $(document).scrollTop($(document).height()+30);
 		});
-        //Subscribe to svnupdate events
-        $.subscribe(app.e.onSvnUpdateStart, function(){
-            wsGridVM.show(false);
-            stdOutVM.header("Updating Website");
-            stdOutVM.show(true);
-        });
-        $.subscribe(app.e.onSvnUpdateProgress, function(e, data){
-            if(!util.string.isBlank(data)){
-                data = data.replace(/^M\s/,"<span class='text-success'>Merged: </span>");
-                data = data.replace(/^A\s/,"<span class='text-info'>Added: </span>");
-                data = data.replace(/^U\s/,"<span class='text-warning'>Updated: </span>");
-                data = data.replace(/^D\s/,"<span class='text-error'>Deleted: </span>");
-                data = data.replace(/^C\s/,"<span class='text-error'><strong><i class='icon-flag'></i>Conflict:</strong> </span>");
-                //Will want to add formating for conflict here
-                stdOutVM.print("<p>"+ data +"</p>");
-                $(document).scrollTop($(document).height());
-            }
-        });
-        $.subscribe(app.e.onSvnUpdateComplete, function(e, self){
-            stdOutVM.lines.push("<div class='alert alert-success'><h4>Update Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
-            $(document).scrollTop($(document).height()+30);
-        });
 	}
 	
 	bindSubscriptions();
@@ -236,8 +197,7 @@ $(function(){
         var showPub = util.file.exists(websites[w]+"\\_s3config.yml");
         var isApp = util.file.exists(websites[w]+"\\debug.cmd");
         var hasIndex = util.file.contains(websites[w]+"\\_config.yml", "index.html");
-        var hasSvn = util.file.exists(websites[w]+"\\.svn");
-        wsGridVM.websites.push(new website(w, websites[w], showPub, isApp, hasIndex, hasSvn));
+        wsGridVM.websites.push(new website(w, websites[w], showPub, isApp, hasIndex));
     }
 
 	//setup websites view model

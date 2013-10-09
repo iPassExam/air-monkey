@@ -1,12 +1,10 @@
-function website(name, folder, showPublish, isApp, hasIndex, hasSvn) {
+function website(name, folder, showPublish, isApp, hasIndex) {
 	if(showPublish === undefined)
 		showPublish = false
     if(isApp === undefined)
         isApp = false
 	if(hasIndex === undefined)
         hasIndex = false
-    if(hasSvn === undefined)
-        hasSvn = false
 
     var self = this;
     self.name = name;
@@ -15,7 +13,6 @@ function website(name, folder, showPublish, isApp, hasIndex, hasSvn) {
 	self.showPublish = showPublish;
     self.debug = isApp;
     self.hasIndex = hasIndex;
-    self.hasSvn = hasSvn;
 
     if(isApp){
         self.action = "debug";
