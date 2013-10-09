@@ -19,6 +19,13 @@
 	<script type="text/javascript" src="assets/scripts/libs/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/scripts/libs/knockout-2.2.1-min.js"></script>
 	
+	<script type="text/javascript" src="assets/scripts/prefs.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			prefs.firstRun("yes");
+		});
+	</script>
   </head>
 
   <body>
@@ -59,6 +66,7 @@
 				<p><strong>Note:</strong> You must select the install options to add ruby to your 'PATH' and accociate with .rb files</p>
                 <p><img src="assets/images/ruby-install-options.png" /></p>
 			</div>
+			<a href="index.html" class="btn">Try Again</a>
 		</div>
 	</div>
 
