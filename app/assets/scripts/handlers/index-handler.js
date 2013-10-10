@@ -30,10 +30,10 @@ $(function(){
 
             switch(action){
                 case "edit":
-                app.website.build(website, webfolder, this, "edit");
+                	app.website.build(website, webfolder, this, "edit");
                 break;
                 default:
-                app.website.build(website, webfolder, this, "build");
+                	app.website.build(website, webfolder, this, "build");
                 break;
             }
         }); 
@@ -57,11 +57,30 @@ $(function(){
 			app.website.deploy(website, webfolder, this);
 		});
 
+		$(".website-serve").live("click", function(e){
+			e.preventDefault();
+			var $this = $(this);
+			var website = $this.attr("data-website");
+			var webfolder = $this.attr("data-webfolder");
+			var server = app.website.server(website, webfolder, this);
+			// Caprure [Ctrl] + [c] and  call 
+			$.ctrl('Q', function() {
+					console.log("Closing...");
+					server.exit();
+					//document.location = "app:/app/index.html";
+			});
+			$.ctrl('C', function() {
+					console.log("Closing...");
+					server.exit();
+					//document.location = "app:/app/index.html";
+			});
+		});
+
 		$("#import-existing").click(function(e){
 			e.preventDefault();
 			var folder = new air.File();
             folder.addEventListener(air.Event.SELECT, onFolderSelected);
-            folder.browseForDirectory("Please select a Static-CMS website directory!");  
+			folder.browseForDirectory("Please select a Static-CMS website directory!");  
  
             function onFolderSelected(e) {
             	if(websiteService.isStaticCMS(folder.nativePath)){
@@ -183,6 +202,24 @@ $(function(){
 		});
 		$.subscribe(app.e.onDeployComplete, function(e, self){
 			stdOutVM.lines.push("<div class='alert alert-success'><h4>Publish Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
+            $(document).scrollTop($(document).height()+30);
+		});
+	    //Subscribe to web server events
+		$.subscribe(app.e.onServerStart, function(){
+			wsGridVM.show(false);
+			stdOutVM.header("Serving Website");
+			stdOutVM.show(true);
+		});
+		$.subscribe(app.e.onServerProgress, function(e, data){
+            //var html = data.replace(/\n/g, '<br />');
+            var html = data.replace(",", "%2C");
+            if(!util.string.isBlank(html)){
+                stdOutVM.print(html);
+    			$(document).scrollTop($(document).height());
+            }
+		});
+		$.subscribe(app.e.onServerComplete, function(e, self){
+			stdOutVM.lines.push("<div class='alert alert-success'><h4>Shutdown Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
             $(document).scrollTop($(document).height()+30);
 		});
 	}

@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="assets/scripts/libs/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/scripts/libs/knockout-2.2.1-min.js"></script>
 	<script type="text/javascript" src="assets/scripts/libs/jquery.pubsub-1.0.js"></script>
+	<script type="text/javascript" src="assets/scripts/libs/jquery.fn.custom.js"></script>
 
 	<!--Lib only dependancies-->
 	<script type="text/javascript" src="assets/scripts/modules/data-persistance.js"></script>
@@ -112,6 +113,11 @@
 							    	<li data-bind="visible: hasIndex"><a class="website-build" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="preview">
 							    		preview
 							    	</a></li>
+							    	<!--
+							    	<li data-bind="visible: hasIndex"><a class="website-serve" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="serve">
+							    		webserver
+							    	</a></li>
+							    	-->
 							    	<li><a class="website-source" data-bind="attr: { 'data-webfolder': folder, 'data-website': name }" href="#" data-action="source">
 							    		view source
 							    	</a></li>

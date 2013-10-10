@@ -6,7 +6,10 @@ var app = {
 		onBuildComplete: "build.complete",
 		onDeployStart: "deploy.start",
 		onDeployProgress: "deploy.progress",
-		onDeployComplete: "deploy.complete"
+		onDeployComplete: "deploy.complete",
+		onServerStart: "server.start",
+		onServerProgress: "server.progress",
+		onServerComplete: "server.complete"
 	},
 	folder: {
 		root: air.File.applicationDirectory,
@@ -32,7 +35,7 @@ var app = {
             }
 
 			$.publish(app.e.onBuildStart);
-			app.startNativeProcess(buildScript, processArgs, function(){
+			var np = app.startNativeProcess(buildScript, processArgs, function(){
 				$.publish(app.e.onBuildComplete, obj);
 			}, function(data){
 				$.publish(app.e.onBuildProgress, data);
@@ -46,11 +49,27 @@ var app = {
 			processArgs.push(util.file.toString(new air.File(webdir))); 
 
 			$.publish(app.e.onDeployStart);
-			app.startNativeProcess(deployScript, processArgs, function(){
+			var np = app.startNativeProcess(deployScript, processArgs, function(){
 				$.publish(app.e.onDeployComplete, obj);
 			}, function(data){
 				$.publish(app.e.onDeployProgress, data);
 			});
+		},
+		server: function(website, webdir, obj){
+			air.trace("Srarting web server: "+ website);
+			var httpServerScript = app.folder.gui.resolvePath("commands\\air-monkey-server.cmd").nativePath;
+
+			var processArgs = new air.Vector["<String>"]();
+			processArgs.push(util.file.toString(new air.File(webdir))); 
+
+			$.publish(app.e.onServerStart);
+			var np = app.startNativeProcess(httpServerScript, processArgs, function(){
+				$.publish(app.e.onServerComplete, obj);
+			}, function(data){
+				$.publish(app.e.onServerProgress, data);
+			});
+
+			return np;
 		},
 		debug: function(website){
 			var appFolder = websiteService.folders.website(website);
@@ -92,6 +111,9 @@ var app = {
 				if(jQuery.isFunction(successCallback))
 					successCallback.call();
 			}
+
+			return nativeProcess;
+
 		} else {
 			air.trace("Native process execution is not supported");
 		}
