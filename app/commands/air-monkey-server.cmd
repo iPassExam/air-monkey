@@ -19,7 +19,7 @@ set "SCMS_HTML_OUT=true"
 ::echo mode = %mode%
 
 cd /D %SCMS_WEBSITE_FOLDER%
-scms -a watch -w '%SCMS_WEBSITE_FOLDER%' --server
+scms --watch --serve --source '%SCMS_WEBSITE_FOLDER%'
 
 :eof
 endlocal

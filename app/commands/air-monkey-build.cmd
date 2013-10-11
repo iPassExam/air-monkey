@@ -19,7 +19,7 @@ set "SCMS_HTML_OUT=true"
 ::echo mode = %mode%
 
 cd /D %SCMS_WEBSITE_FOLDER%
-scms -a build -m %mode% -w '%SCMS_WEBSITE_FOLDER%' 
+scms -m %mode% --source '%SCMS_WEBSITE_FOLDER%' 
 
 :eof
 endlocal

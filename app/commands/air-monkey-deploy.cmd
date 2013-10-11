@@ -17,5 +17,5 @@ set "S3CONF=%SCMS_WEBSITE_FOLDER%"
 set "SSL_CERT_DIR=%SCMS_WEBSITE_FOLDER%\s3certs\"
 set "AWS_CALLING_FORMAT=SUBDOMAIN"
 
-scms -a deploy -w '%SCMS_WEBSITE_FOLDER%'
+scms --publish --source '%SCMS_WEBSITE_FOLDER%'
 endlocal
