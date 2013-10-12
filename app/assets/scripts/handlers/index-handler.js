@@ -63,7 +63,6 @@ $(function(){
 			var website = $this.attr("data-website");
 			var webfolder = $this.attr("data-webfolder");
 			var server = app.website.server(website, webfolder, this);
-			// Caprure [Ctrl] + [c] and  call 
 			$.ctrl('Q', function() {
 					console.log("Closing...");
 					server.exit();
