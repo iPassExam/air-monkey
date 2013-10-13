@@ -62,7 +62,9 @@ $(function(){
 			var $this = $(this);
 			var website = $this.attr("data-website");
 			var webfolder = $this.attr("data-webfolder");
-			var server = app.website.server(website, webfolder, this);
+			var wsindex = $this.attr("data-index");
+
+			var server = app.website.server(website, webfolder, wsindex, this);
 			$.ctrl('Q', function() {
 					console.log("Closing...");
 					server.exit();

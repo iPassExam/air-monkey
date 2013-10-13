@@ -46,7 +46,7 @@ var app = {
 			var deployScript = app.folder.gui.resolvePath("commands\\air-monkey-deploy.cmd").nativePath;
 
 			var processArgs = new air.Vector["<String>"]();
-			processArgs.push(util.file.toString(new air.File(webdir))); 
+			processArgs.push(util.file.toString(new air.File(webdir)));
 
 			$.publish(app.e.onDeployStart);
 			var np = app.startNativeProcess(deployScript, processArgs, function(){
@@ -55,12 +55,13 @@ var app = {
 				$.publish(app.e.onDeployProgress, data);
 			});
 		},
-		server: function(website, webdir, obj){
+		server: function(website, webdir, wsindex, obj){
 			air.trace("Srarting web server: "+ website);
 			var httpServerScript = app.folder.gui.resolvePath("commands\\air-monkey-server.cmd").nativePath;
 
 			var processArgs = new air.Vector["<String>"]();
-			processArgs.push(util.file.toString(new air.File(webdir))); 
+			processArgs.push(util.file.toString(new air.File(webdir)));
+			processArgs.push("9" + util.integer.pad(wsindex, 3)); 
 
 			$.publish(app.e.onServerStart);
 			var np = app.startNativeProcess(httpServerScript, processArgs, function(){

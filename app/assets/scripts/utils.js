@@ -19,10 +19,10 @@ var util = {
 	},
 	html: {
 		encode: function (value){
-		  return $('<div/>').text(value).html();
+			return $('<div/>').text(value).html();
 		},
 		decode: function (value){
-		  return $('<div/>').html(value).text();
+			return $('<div/>').html(value).text();
 		}
 	},
 	convert: {
@@ -32,6 +32,13 @@ var util = {
 				case "false": case "no": case "0": case null: return false;
 				default: return Boolean(string);
 			}
+		}
+	},
+	integer: {
+		pad: function (num, size) {
+			var s = num+"";
+			while (s.length < size) s = "0" + s;
+			return s;
 		}
 	},
     string: {

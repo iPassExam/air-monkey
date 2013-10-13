@@ -7,19 +7,19 @@ if "%1" == "" (
 ) else (
 	set SCMS_WEBSITE_FOLDER=%1
 )
-set mode=publish
+set port=8700
 if NOT  "%2" == "" (
-    set mode=%2
+    set port=%2
 )
 
 set SCMS_WEBSITE_FOLDER=!SCMS_WEBSITE_FOLDER:%%20= !
 set "SCMS_HTML_OUT=true"
 
 ::echo SCMS_WEBSITE_FOLDER = %SCMS_WEBSITE_FOLDER%
-::echo mode = %mode%
+echo port = %port%
 
 cd /D %SCMS_WEBSITE_FOLDER%
-scms --watch --serve --source '%SCMS_WEBSITE_FOLDER%'
+scms --watch --serve --source '%SCMS_WEBSITE_FOLDER%' --port %port%
 
 :eof
 endlocal
