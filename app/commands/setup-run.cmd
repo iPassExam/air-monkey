@@ -5,4 +5,6 @@
 @echo *** Static-CMS 
 @call gem uninstal aproxacs-s3sync -i -x --force
 @call gem install scms --no-ri --no-rdoc
+
+pause
 exit
