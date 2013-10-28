@@ -21,7 +21,7 @@ $(function(){
 			app.startNativeProcess(app.folder.gui.resolvePath("commands/setup.cmd").nativePath);
 		});
 
-        $(".website-build").live("click", function(e){ 
+        $(".website-build").live("click", function(e){
             e.preventDefault();
             var $this = $(this);
             var website = $this.attr("data-website");
@@ -30,24 +30,24 @@ $(function(){
 
             switch(action){
                 case "edit":
-                	app.website.build(website, webfolder, this, "edit");
+					app.website.build(website, webfolder, this, "edit");
                 break;
                 default:
-                	app.website.build(website, webfolder, this, "build");
+					app.website.build(website, webfolder, this, "build");
                 break;
             }
-        }); 
+        });
 
-		$(".website-source").live("click", function(e){ 
+		$(".website-source").live("click", function(e){
 			e.preventDefault();
 			var $this = $(this);
 			var website = $this.attr("data-website");
 			var webfolder = $this.attr("data-webfolder");
 
-			var webfolderObj = new air.File(); 
+			var webfolderObj = new air.File();
 			webfolderObj.nativePath = webfolder;
 			webfolderObj.openWithDefaultApplication();
-		}); 
+		});
 
 		$(".website-deploy").live("click", function(e){
 			e.preventDefault();
@@ -81,21 +81,23 @@ $(function(){
 			e.preventDefault();
 			var folder = new air.File();
             folder.addEventListener(air.Event.SELECT, onFolderSelected);
-			folder.browseForDirectory("Please select a Static-CMS website directory!");  
+			folder.browseForDirectory("Please select a Static-CMS website directory!");
  
             function onFolderSelected(e) {
-            	if(websiteService.isStaticCMS(folder.nativePath)){
-            		var name=prompt("Please enter a label for website","");
-					if (name!=null && name!=""){
-		            	var newWebsite = new website(name, folder.nativePath);
-		                if(websiteService.saveWebsite(newWebsite.name, newWebsite.folder)){
-                            document.location = "app:/app/index.html";
-                        }
-	            	} else {alert("No name specified!")}
-            		
-            	} else {
-            		alert("Folder doesn't contain a Static-CMS _config.yml file!");
-            	}
+				if(websiteService.isStaticCMS(folder.nativePath)){
+					var name=prompt("Please enter a label for website","");
+					if (name!==null && name!==""){
+						var newWebsite = new website(name, folder.nativePath);
+						if(websiteService.saveWebsite(newWebsite.name, newWebsite.folder)){
+							document.location = "app:/app/index.html";
+						}
+					}
+					else {
+						alert("No name specified!");
+					}
+				} else {
+					alert("Folder doesn't contain a Static-CMS _config.yml file!");
+				}
             }
 		});
 	}
@@ -107,7 +109,7 @@ $(function(){
 		});
 		$.subscribe(rubyCheck.e.onRubyInstalled, function(e){
 			// if(prefs.firstRun()){
-			// 	nativeUpdater.installGems();
+			//	nativeUpdater.installGems();
 			// }
 		});
 		// Subscribe to native update events		
@@ -135,7 +137,7 @@ $(function(){
 			prefs.firstRun("no");
 			wsGridVM.show(true);
 			stdOutVM.show(false);
-			location.reload(); 
+			location.reload();
 		});
 		//Subscribe to build events
 		$.subscribe(app.e.onBuildStart, function(){
@@ -149,9 +151,9 @@ $(function(){
             html = html.trim().replace("\n","");
             if(!util.string.isBlank(html)){
                 //console.log(typeof(html));
-    			//stdOutVM.print(html);
+				//stdOutVM.print(html);
                 stdOutVM.print(html);
-    			$(document).scrollTop($(document).height());
+				$(document).scrollTop($(document).height());
             }
 		});
 		$.subscribe(app.e.onBuildComplete, function(e, self){
@@ -161,17 +163,17 @@ $(function(){
 			{
 			case "debug":
 				var website = $a.attr("data-website");
-				app.website.debug(website); 
-				document.location = "app:/app/index.html"
-			  	break;
+				app.website.debug(website);
+				document.location = "app:/app/index.html";
+				break;
 			case "edit":
 				setTimeout(function(){
 					document.location = $a.attr("href");
 				}, 500);
-			  	break;
+				break;
 			case "preview":
-                var pub = websiteService.folders.website($a.attr("data-website")).nativePath; 
-                var index = new air.File(pub +"\\index.html"); 
+                var pub = websiteService.folders.website($a.attr("data-website")).nativePath;
+                var index = new air.File(pub +"\\index.html");
                 if(index.exists){
                     index.openWithDefaultApplication();
                 } else {
@@ -180,9 +182,9 @@ $(function(){
                 //document.location = "app:/app/index.html";
                 stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
             
-			  	break;
+				break;
 			default:
-			  	stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
+				stdOutVM.lines.push("<br /><div class='alert alert-success'><h4>Build Complete</h4><br /><a href='app:/app/index.html' class='btn btn-success btn-large'>return</a></div>");
 			}
 
 			$(document).scrollTop($(document).height()+30);
@@ -198,14 +200,14 @@ $(function(){
             var html = data.replace(",", "%2C");
             if(!util.string.isBlank(html)){
                 stdOutVM.print(html);
-    			$(document).scrollTop($(document).height());
+				$(document).scrollTop($(document).height());
             }
 		});
 		$.subscribe(app.e.onDeployComplete, function(e, self){
 			stdOutVM.lines.push("<div class='alert alert-success'><h4>Publish Complete</h4><a href='app:/app/index.html' class='btn btn-success btn-large btn-block'>return</a></div>");
             $(document).scrollTop($(document).height()+30);
 		});
-	    //Subscribe to web server events
+		//Subscribe to web server events
 		$.subscribe(app.e.onServerStart, function(){
 			wsGridVM.show(false);
 			stdOutVM.header("Serving Website");
@@ -216,7 +218,7 @@ $(function(){
             var html = data.replace(",", "%2C");
             if(!util.string.isBlank(html)){
                 stdOutVM.print(html);
-    			$(document).scrollTop($(document).height());
+				$(document).scrollTop($(document).height());
             }
 		});
 		$.subscribe(app.e.onServerComplete, function(e, self){
@@ -234,7 +236,8 @@ $(function(){
     function renderWebsite(w){
         var showPub = util.file.exists(websites[w]+"\\_s3config.yml");
         var isApp = util.file.exists(websites[w]+"\\debug.cmd");
-        var hasIndex = util.file.contains(websites[w]+"\\_config.yml", "index.html");
+        //var hasIndex = util.file.contains(websites[w]+"\\_config.yml", "index.html");
+        var hasIndex = util.file.exists(websites[w]+"\\index.html");
         wsGridVM.websites.push(new website(w, websites[w], showPub, isApp, hasIndex));
     }
 
@@ -267,8 +270,8 @@ $(function(){
     }
 
     // Add websites to grid model
-	for(var w in websites) {
-        renderWebsite(w);
+	for(var www in websites) {
+        renderWebsite(www);
 	}
 	
 	bindEvents();
@@ -283,7 +286,7 @@ $(function(){
 		// Reposition window (only run on open!!!)
 		try {
 			var x = prefs.window.x();
-			if (x == null || x > air.Screen.mainScreen.bounds.width) {
+			if (x === null || x > air.Screen.mainScreen.bounds.width) {
 				nativeWindow.x = 0;
 			}
 			else {
@@ -291,7 +294,7 @@ $(function(){
 			}
 			
 			var y = prefs.window.y();
-			if (y == null || y > air.Screen.mainScreen.bounds.height) {
+			if (y === null || y > air.Screen.mainScreen.bounds.height) {
 				nativeWindow.y = 0;
 			}
 			else {
@@ -299,17 +302,17 @@ $(function(){
 			}
 
 			var width = prefs.window.width();
-			if (width != null) {
+			if (width !== null) {
 				nativeWindow.width = width;
 			}
 
 			var height = prefs.window.height();
-			if (height != null) {
+			if (height !== null) {
 				nativeWindow.height = height;
 			}
 		}
 		catch(err){
 			air.trace("Could not move window");
 		}
-	} 
+	}
 });

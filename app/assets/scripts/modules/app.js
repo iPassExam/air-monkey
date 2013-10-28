@@ -61,7 +61,7 @@ var app = {
 
 			var processArgs = new air.Vector["<String>"]();
 			processArgs.push(util.file.toString(new air.File(webdir)));
-			processArgs.push("9" + util.integer.pad(wsindex, 3)); 
+			processArgs.push("9" + util.integer.pad(parseInt(wsindex, 10)+600, 3));
 
 			$.publish(app.e.onServerStart);
 			var np = app.startNativeProcess(httpServerScript, processArgs, function(){

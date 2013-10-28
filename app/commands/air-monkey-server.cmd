@@ -11,6 +11,7 @@ set port=8700
 if NOT  "%2" == "" (
     set port=%2
 )
+echo "<div class='alert alert-info'>Use <strong>[Ctrl] + [c]</strong> to stop</div>"
 
 set SCMS_WEBSITE_FOLDER=!SCMS_WEBSITE_FOLDER:%%20= !
 set "SCMS_HTML_OUT=true"
