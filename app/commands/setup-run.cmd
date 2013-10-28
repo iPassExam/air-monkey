@@ -5,7 +5,9 @@
 @echo *** Static-CMS 
 @call gem uninstal aproxacs-s3sync -i -x --force
 @call gem install scms --no-ri --no-rdoc
-@call gem install cprobert-s3sync --no-ri --no-rdoc
+
+@call gem update scms
+@call gem update cprobert-s3sync
 
 pause
 exit
