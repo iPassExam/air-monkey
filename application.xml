@@ -10,7 +10,7 @@
 	<!-- An application version designator Required. -->
 	<versionNumber>4.1.1</versionNumber>
     <!-- An gem version # -->
-    <versionLabel>4.1.1</versionLabel>
+    <versionLabel>4.2.0</versionLabel>
 	<!-- Description, displayed in the AIR application installer. Optional. -->
 	<description> 
         <text xml:lang="en">Html Editor For StaticCMS</text> 
