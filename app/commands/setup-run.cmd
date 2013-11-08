@@ -1,4 +1,13 @@
 @echo off
+
+ruby -v 
+if %errorlevel%==0 goto Update
+echo Please install Ruby (%errorlevel%)
+start http://rubyinstaller.org/
+echo.&pause&goto:eof
+
+:Update
+Rem Requires ruby
 @echo *** Update Gems
 @call gem update --system
 
