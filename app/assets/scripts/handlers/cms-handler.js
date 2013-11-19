@@ -45,7 +45,7 @@ $(function(){
         // This hack uses a hidden submit button to intercept the CKeditor save event
         $('#submit').off('click').click(function(e){
             e.preventDefault();
-            $('#submit').off('click').click(function(e){ 
+            $('#submit').off('click').click(function(e){
                 e.preventDefault();
                 alert("Saving in progress!");
                 return false;
@@ -56,13 +56,14 @@ $(function(){
             return false;
         });
 
-        var editor = $('textarea#editor').ckeditor(function() { 
-                            air.trace('CK Callback'); 
-                        }, { 
+        var editor = $('textarea#editor').ckeditor(function() {
+                            air.trace('CK Callback');
+                        }, {
                             customConfig: 'app:/app/assets/scripts/ckeditor-config.js',
-                            on: {           
-                                'instanceReady': function (evt) { 
-                                    evt.editor.execCommand('maximize'); 
+                            baseHref: "file:///"+ website.folder.replace(/\\/g, "/") + "/",
+                            on: {
+                                'instanceReady': function (evt) {
+                                    evt.editor.execCommand('maximize');
                                     var blockTags = ['div','h1','h2','h3','h4','h5','h6','p','pre','li','blockquote','ul','ol','table','thead','tbody','tfoot','td','th',];
 
                                       for (var i = 0; i < blockTags.length; i++)
@@ -79,6 +80,14 @@ $(function(){
                             }
                         }
         );
+
+        $("#exit")
+            .show()
+            .click(function(e){
+                e.preventDefault();
+                exit(website);
+            });
+
     } else {
           //use code editor
           var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
@@ -92,8 +101,8 @@ $(function(){
             .show()
             .click(function(e){
                 e.preventDefault();
-                var html = editor.getValue();  
-                $(this).attr("disabled", "disabled").html("saving...")
+                var html = editor.getValue();
+                $(this).attr("disabled", "disabled").html("saving...");
                 Save(html);
             });
           $("#exit")

@@ -9,9 +9,11 @@ CKEDITOR.editorConfig = function( config )
     config. width = "100%";
 
     config.toolbar =  [
-                [ 'Save' ],
-                [ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'Format' ],
-                [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Image','Table' ],
+                [ 'Save', 'Undo' ],
+                [ 'Bold', 'Italic', 'Strike','-','Outdent','Indent','-','Blockquote' ],
+                [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight' ],
+                [ 'Link', 'Unlink', '-', 'Image', 'Table', 'HorizontalRule' ],
+                [ 'NumberedList', 'BulletedList' ],
                 [ 'Source' ]
     ];
 

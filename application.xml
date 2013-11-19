@@ -8,7 +8,7 @@
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
 	<name>Air Monkey</name>
 	<!-- An application version designator Required. -->
-	<versionNumber>4.1.1</versionNumber>
+	<versionNumber>4.2.5</versionNumber>
     <!-- An gem version # -->
     <versionLabel>4.2.5</versionLabel>
 	<!-- Description, displayed in the AIR application installer. Optional. -->
