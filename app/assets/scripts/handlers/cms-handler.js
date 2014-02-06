@@ -7,22 +7,30 @@ $(function(){
         folder: util.html.decode(page.request.querystring("webfolder")),
         site: util.html.decode(page.request.querystring("website"))
     };
-    
+
+    var baseHref = "file:///"+ website.folder.replace(/\\/g, "/") + "/";
+
     air.trace("Page: "+ website.page);
     air.trace("View: "+ website.view);
     air.trace("Website: "+ website.site);
     air.trace("Webfolder: "+ website.folder);
     
     var viewURI = websiteService.folders.website(website.site).resolvePath(website.view).nativePath;
-    
+    var wysiwygMode = false;
+    if(website.view.endsWith(".htm") || website.view.endsWith(".html")){
+        wysiwygMode = true;
+    }
     if(util.file.exists(viewURI)){
-        $("#editor").val(util.file.read(viewURI));
+        var viewHtml = util.file.read(viewURI);
+        if(wysiwygMode)
+            viewHtml = viewHtml.replace(/\~\//g, baseHref);
+        $("#editor").val(viewHtml);
     }
     else {
         alert("No such view: "+ viewURI);
     }
 
-    function exit(website){
+    function Exit(website){
         document.location = "app:/app/web-loader.html?website="+ website.site +"&webfolder="+ website.folder +"&page="+ website.page;
     }
 
@@ -32,16 +40,53 @@ $(function(){
             backdrop: "static"
         })
 
+        var regex = new RegExp(baseHref, "g");
+        html = html.replace(regex, "~/");
+
+        // Fixes annoying CKEditor bug
+        if(html.endsWith("<p></p>\n"))
+            html = html.substring(0, html.length - 8)
+
         util.file.write(viewURI, html);
 
         $.subscribe(app.e.onBuildComplete, function(e, website){
-            exit(website);
+            Exit(website);
         });
 
         app.website.build(website.site, website.folder, website, "edit");
     }
 
-    if(website.view.endsWith(".htm") || website.view.endsWith(".html")){ //use wysiwyg editor
+    function setupCodeMirror(){
+        var textArea = document.getElementById("editor");
+        var textEditor = CodeMirror.fromTextArea(textArea, {
+            lineNumbers: true,
+            lineWrapping: true,
+            autofocus: true,
+            mode: "htmlmixed",
+            extraKeys: {
+                "Ctrl-S": function(instance) { Save(instance.getValue()); },
+                "Esc": function() { Exit(website); },
+                "Ctrl-/": "undo"
+            }
+        });
+
+        $("#submit")
+        .show()
+        .click(function(e){
+            e.preventDefault();
+            var html = textEditor.getValue();
+            $(this).attr("disabled", "disabled").html("saving...");
+            Save(html);
+        });
+        $("#exit")
+        .show()
+        .click(function(e){
+            e.preventDefault();
+            Exit(website);
+        });
+    }
+
+    if(wysiwygMode){ //use wysiwyg editor
         // This hack uses a hidden submit button to intercept the CKeditor save event
         $('#submit').off('click').click(function(e){
             e.preventDefault();
@@ -56,60 +101,73 @@ $(function(){
             return false;
         });
 
-        var editor = $('textarea#editor').ckeditor(function() {
-                            air.trace('CK Callback');
-                        }, {
-                            customConfig: 'app:/app/assets/scripts/ckeditor-config.js',
-                            baseHref: "file:///"+ website.folder.replace(/\\/g, "/") + "/",
-                            on: {
-                                'instanceReady': function (evt) {
-                                    evt.editor.execCommand('maximize');
-                                    var blockTags = ['div','h1','h2','h3','h4','h5','h6','p','pre','li','blockquote','ul','ol','table','thead','tbody','tfoot','td','th',];
+        CKEDITOR.replace('editor', {
+            customConfig: 'app:/app/assets/scripts/ckeditor-config.js',
+            baseHref: baseHref,
+            on: {'instanceReady': function(e){
+                e.editor.execCommand('maximize');
+                var blockTags = ['div','pre','blockquote','ul','ol','table','thead','tbody','tfoot','td','th'];
 
-                                      for (var i = 0; i < blockTags.length; i++)
-                                      {
-                                         this.dataProcessor.writer.setRules( blockTags[i], {
-                                            indent : false,
-                                            breakBeforeOpen : true,
-                                            breakAfterOpen : false,
-                                            breakBeforeClose : false,
-                                            breakAfterClose : true
-                                         });
-                                      }
-                                }
-                            }
-                        }
-        );
+                  for (var i = 0; i < blockTags.length; i++)
+                  {
+                     e.editor.dataProcessor.writer.setRules( blockTags[i], {
+                        indent : true,
+                        breakBeforeOpen : true,
+                        breakAfterOpen : true,
+                        breakBeforeClose : true,
+                        breakAfterClose : true
+                     });
+                  }
 
-        $("#exit")
-            .show()
-            .click(function(e){
-                e.preventDefault();
-                exit(website);
+                  var spanTags = ['h1','h2','h3','h4','h5','h6','p','li'];
+
+                  for (var i = 0; i < spanTags.length; i++)
+                  {
+                     e.editor.dataProcessor.writer.setRules( spanTags[i], {
+                        indent : true,
+                        breakBeforeOpen : true,
+                        breakAfterOpen : false,
+                        breakBeforeClose : false,
+                        breakAfterClose : true
+                     });
+                  }
+                // // Ends self closing tags the HTML4 way, like <br>.
+                // e.editor.dataProcessor.writer.selfClosingEnd = '>';
+            }}
+        });
+
+        for (var i in CKEDITOR.instances) {
+
+            CKEDITOR.instances[i].on('key', function(e) {
+                if(e.data.keyCode==27){
+                    Exit(website);
+                    // console.log("Switching to source view");
+                    // e.cancel();
+                    // e.editor.destroy();
+                    // setupCodeMirror();
+                }
             });
+
+            // CKEDITOR.instances[i].on('mode', function(e) {
+            //    alert(e.editor.mode);
+            //    if (e.editor.mode == 'source') {
+            //       e.cancel();
+            //       e.editor.destroy();
+            //       setupCodeMirror();
+            //    }
+            // });
+
+        }
+
+        // $("#exit")
+        //     .show()
+        //     .click(function(e){
+        //         e.preventDefault();
+        //         Exit(website);
+        //     });
 
     } else {
           //use code editor
-          var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-            lineNumbers: true,
-            lineWrapping: true,
-            autofocus: true,
-            mode: "htmlmixed"
-          });
-
-          $("#submit")
-            .show()
-            .click(function(e){
-                e.preventDefault();
-                var html = editor.getValue();
-                $(this).attr("disabled", "disabled").html("saving...");
-                Save(html);
-            });
-          $("#exit")
-            .show()
-            .click(function(e){
-                e.preventDefault();
-                exit(website);
-            });
+          setupCodeMirror();
     }
 });

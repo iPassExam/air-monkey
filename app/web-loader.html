@@ -69,9 +69,13 @@
             });
         }
 
+        function goHome(){
+			document.location = "app:/app/index.html";
+        }
+
 		$(function(){
 			$("#home").click(function(){
-				document.location = "app:/app/index.html";
+				goHome()
 			});
 			
 			website = util.html.decode(page.request.querystring("website"));
@@ -79,6 +83,11 @@
 			page = util.html.decode(page.request.querystring("page"));
             loadiframe(webfolder, page);
 
+		});
+		$(document).keyup(function(e) {
+		  if (e.keyCode == 27) {
+		  	goHome()
+		  }   // esc
 		});
 	</script> 
   </head>

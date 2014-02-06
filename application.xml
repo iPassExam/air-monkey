@@ -8,9 +8,9 @@
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
 	<name>Air Monkey</name>
 	<!-- An application version designator Required. -->
-	<versionNumber>4.2.5</versionNumber>
+	<versionNumber>4.3.0</versionNumber>
     <!-- An gem version # -->
-    <versionLabel>4.2.5</versionLabel>
+    <versionLabel>4.3.0</versionLabel>
 	<!-- Description, displayed in the AIR application installer. Optional. -->
 	<description> 
         <text xml:lang="en">Html Editor For StaticCMS</text> 
