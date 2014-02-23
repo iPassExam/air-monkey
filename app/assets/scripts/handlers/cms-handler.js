@@ -47,6 +47,8 @@ $(function(){
         if(html.endsWith("<p></p>\n"))
             html = html.substring(0, html.length - 8)
 
+        //console.log("saving: "+ viewURI)
+
         util.file.write(viewURI, html);
 
         $.subscribe(app.e.onBuildComplete, function(e, website){
@@ -101,11 +103,12 @@ $(function(){
             return false;
         });
 
-        CKEDITOR.replace('editor', {
+        var editor = $('textarea#editor').ckeditor( function() { /* callback code */ }, {
             customConfig: 'app:/app/assets/scripts/ckeditor-config.js',
             baseHref: baseHref,
             on: {'instanceReady': function(e){
                 e.editor.execCommand('maximize');
+
                 var blockTags = ['div','pre','blockquote','ul','ol','table','thead','tbody','tfoot','td','th'];
 
                   for (var i = 0; i < blockTags.length; i++)
@@ -135,6 +138,8 @@ $(function(){
                 // e.editor.dataProcessor.writer.selfClosingEnd = '>';
             }}
         });
+
+        editor
 
         for (var i in CKEDITOR.instances) {
 

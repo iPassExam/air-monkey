@@ -38,6 +38,17 @@ $(function(){
             }
         });
 
+		$(".website-terminal").live("click", function(e){
+			e.preventDefault();
+			var $this = $(this);
+			var website = $this.attr("data-website");
+			var webfolder = $this.attr("data-webfolder");
+
+			var processArgs = new air.Vector["<String>"]();
+			processArgs.push(util.file.toString(new air.File(webfolder)));
+			app.startNativeProcess(app.folder.gui.resolvePath("commands/menu.cmd").nativePath, processArgs);
+		});
+
 		$(".website-source").live("click", function(e){
 			e.preventDefault();
 			var $this = $(this);

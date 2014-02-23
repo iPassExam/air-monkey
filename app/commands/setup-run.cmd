@@ -11,6 +11,7 @@ Rem Requires ruby
 @echo *** Update Gems
 @call gem update --system
 
+@call gem install sass -v 3.2.14
 @echo *** Static-CMS 
 @call gem uninstal aproxacs-s3sync -i -x --force
 @call gem install scms --no-ri --no-rdoc
