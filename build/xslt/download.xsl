@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+    <link href="bootstrap-combined.min.css" rel="stylesheet" />
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -45,12 +45,10 @@
     <div class="container">
       <form class="form-download text-center">
         <h2 class="form-download-heading">Air Monkey</h2>
-        <a href="http://static-cms.ipassexam.com/"><img src="http://ipassexam.github.io/Air-Monkey/images/airmonkey-logo.png" /></a>
+        <a href="http://static-cms.ipassexam.com/"><img src="https://ipassexam.github.io/Air-Monkey/images/airmonkey-logo.png" /></a>
         <a href="https://dl.dropboxusercontent.com/u/4407314/AirMonkey/Air-Monkey_{a:versionNumber}.exe" class="btn btn-large btn-primary" type="submit">Download</a>
       </form>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   </body>
 </html>
 		
