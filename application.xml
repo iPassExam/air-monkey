@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/3.0">
+	<supportedProfiles>extendedDesktop</supportedProfiles>
+	<!-- The application identifier string, unique to this application. Required. -->
+	<id>uk.me.probert.airmonkey</id>
+	<!-- Used as the filename for the application. Required. -->
+	<filename>AirMonkey</filename>
+	<!-- The name that is displayed in the AIR application installer. Optional. -->
+	<name>Air Monkey</name>
+	<!-- An application version designator Required. -->
+	<versionNumber>4.4.5</versionNumber>
+    <!-- An gem version # -->
+    <versionLabel>4.4.6</versionLabel>
+	<!-- Description, displayed in the AIR application installer. Optional. -->
+	<description> 
+        <text xml:lang="en">Html Editor For StaticCMS</text> 
+        <text xml:lang="fr">Éditeur HTML pour StaticCMS</text> 
+        <text xml:lang="es">Html Editor Para StaticCMS</text> 
+    </description> 
+	<!-- Copyright information. Optional -->
+	<copyright>Copyright (c) 2013 Courtenay Probert.</copyright> 
+	<!-- Settings for the application's initial window. Required. -->
+	<initialWindow>
+		<!-- The main HTML file of the application. Required. -->
+		<content>app/index.html</content>
+		<!-- The title of the main window. Optional. -->
+		<title/>
+		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
+		<systemChrome>standard</systemChrome>
+		<!-- Whether the window is transparent. Only applicable when systemChrome is false. Optional. Default false. -->
+		<transparent>false</transparent>
+		<!-- Whether the window is initially visible. Optional. Default false. -->
+		<visible>true</visible>
+		<!-- Whether the user can minimize the window. Optional. Default true. -->
+		<minimizable>true</minimizable>
+		<!-- Whether the user can maximize the window. Optional. Default true. -->
+		<maximizable>true</maximizable>
+		<!-- Whether the user can resize the window. Optional. Default true. -->
+		<resizable>true</resizable>
+		<!-- The window's initial width. Optional. -->
+		<width>1024</width>
+		<!-- The window's initial height. Optional. -->
+		<height>768</height>
+		<!-- The window's initial x position. Optional. -->
+		<x>0</x>
+		<!-- The window's initial y position. Optional. -->
+		<y>0</y>
+		<!-- The window's minimum size, specified as a width/height pair, such as "400 200". Optional. -->
+		<minSize>400 300</minSize>
+		<!-- The window's initial maximum size, specified as a width/height pair, such as "1600 1200". Optional. -->
+		<maxSize>1600 1200</maxSize>
+	</initialWindow>
+	<installFolder>AirMonkey</installFolder> 
+    <programMenuFolder>Air Monkey</programMenuFolder> 
+	<icon>
+		<image16x16>app/assets/images/logo-16.png</image16x16>
+		<image32x32>app/assets/images/logo-32.png</image32x32>
+		<image48x48>app/assets/images/logo-48.png</image48x48>
+		<image128x128>app/assets/images/logo-128.png</image128x128>
+	</icon>
+	<fileTypes></fileTypes>
+</application>
